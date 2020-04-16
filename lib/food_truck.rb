@@ -12,9 +12,12 @@ class FoodTruck
   end
 
   def stock(item, item_quantity)
-    stock = Hash.new
-    stock[item] = item_quantity
-    old_stock = @inventory
-    old_stock.merge!(stock) {|key, old_value, new_value| old_value + new_value}
+    @inventory[item] += item_quantity
+  end
+
+  def potential_revenue
+     @inventory.map do |item, item_quantity|
+       @inventory[item]  *  item.price
+     end.sum
   end
 end
